@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <el-button type="primary">6</el-button>
+  <RouterView/>
 </template>
 
 <style scoped>
