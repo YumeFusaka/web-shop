@@ -3,15 +3,44 @@ import DetailHot from './components/DetailHot.vue'
 import {getDetail} from '@/apis/detail'
 import {onMounted, ref} from 'vue'
 import {useRoute} from 'vue-router'
-import ImageView from '@/components/ImageView/index.vue'
+import {useCartStore} from '@/stores/cartStore'
+import { ElMessage } from 'element-plus'
 const goods = ref([])
 const route= useRoute()
+const cartStore = useCartStore()
 const getGoods = async()=>{
   const res = await getDetail(route.params.id)
   goods.value = res.result
 }
 
 onMounted(()=>getGoods())
+
+let skuObj = {}
+const skuChange= (sku)=>{
+  console.log(sku)
+  skuObj = sku
+}
+const count = ref(1)
+const countChange = (count)=>{
+  console.log(count)
+}
+
+const addCart = ()=>{
+  if(skuObj.skuId){
+    cartStore.addCart({
+      id:goods.value.id,
+      name:goods.value.name,
+      pictures:goods.value.mainPictures[0],
+      price:goods.value.price,
+      count:count.value,
+      skuId:skuObj.skuId,
+      attrsText:skuObj.specsText,
+      selected:true,
+    })
+  }else{
+    ElMessage.warning('请选择商品规格')
+  }
+}
 </script>
 
 <template>
@@ -33,7 +62,7 @@ onMounted(()=>getGoods())
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <ImageView/>
+              <ImageView :image-list="goods.mainPictures"/>
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -82,16 +111,15 @@ onMounted(()=>getGoods())
                 </dl>
               </div>
               <!-- sku组件 -->
-
+              <XtxSku :goods="goods" @change="skuChange"/>
               <!-- 数据组件 -->
-
+              <el-input-number v-model="count" @change="countChange"/>
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn">
+                <el-button @click="addCart" size="large" class="btn">
                   加入购物车
                 </el-button>
               </div>
-
             </div>
           </div>
           <div class="goods-footer">

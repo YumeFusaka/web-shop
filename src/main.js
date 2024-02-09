@@ -15,6 +15,16 @@ app.use(router)
 
 app.mount('#app')
 
+
+
 import { lazyPlugin } from './directives'
 app.use(lazyPlugin)
+import { componentPlugin } from './components'
+app.use(componentPlugin)
+
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+const pinia = createPinia()
+app.use(pinia)
+pinia.use(piniaPluginPersistedstate)
 
