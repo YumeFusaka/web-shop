@@ -6,6 +6,12 @@ import Home from '@/views/Home/index.vue'
 import SubCategory from '@/views/SubCategory/index.vue'
 import Detail from '@/views/Detail/index.vue'
 import CartList from '@/views/CartList/index.vue'
+import Checkout from '@/views/Checkout/index.vue'
+import Pay from '@/views/Pay/index.vue'
+import PayBack from '@/views/Pay/PayBack.vue'
+import Member from '@/views/Member/index.vue'
+import UserInfo from '@/views/Member/components/UserInfo.vue'
+import UserOrder from '@/views/Member/components/UserOrder.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,7 +22,7 @@ const router = createRouter({
       children:[
         {
           path: '',
-          component: Home
+          component: Home,
         },
         {
           path: 'category/:id',
@@ -33,6 +39,33 @@ const router = createRouter({
         {
           path: 'cartlist',
           component: CartList
+        },
+        {
+          path:'checkout',
+          component: Checkout
+        },
+        {
+          path: 'pay',
+          component: Pay
+        },
+        {
+          path: 'paycallback',
+          component: PayBack
+        },
+        {
+          path:'member',
+          component: Member,
+          redirect: '/member/user',
+          children:[
+            {
+              path: 'user',
+              component: UserInfo
+            },
+            {
+              path: 'order',
+              component: UserOrder
+            }
+          ]
         }
       ]
     },

@@ -5,7 +5,7 @@ import { ITEM_RENDER_EVT } from 'element-plus/es/components/virtual-list/src/def
 
 import { useCategoryStore } from '@/stores/category';
 <script setup>
-import {useCategoryStore} from '@/stores/category'
+import {useCategoryStore} from '@/stores/categoryStore'
 const categoryStore = useCategoryStore()
 </script>
 
