@@ -93,7 +93,7 @@ const fomartPayState = (payState) => {
                     <div class="count">x{{ item.quantity }}</div>
                   </li>
                 </ul>
-              </div>
+              </div> 
               <div class="column state">
                 <p>{{ fomartPayState(order.orderState) }}</p>
                 <p v-if="order.orderState === 3">
